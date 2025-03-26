@@ -14,7 +14,8 @@ let leadingMinutes = 0;
 let leadingHours = 0;
 
 // variables for set interval and timer status
-
+let timeInterval =null;
+let  timerStatus = "stopped";
 
 
 
@@ -67,6 +68,40 @@ function stopWatch() {
     leadingHours+ ":" + leadingMinutes+ ":" + leadingSeconds;
 }
 
-// window.setInterval(stopWatch,1000)
 
+//start and stop button with a function to set time and pause it
 
+startStopBtn.addEventListener('click',
+    
+    function(){
+    
+      if(timerStatus === "stopped") {
+        timeInterval = window.setInterval(stopWatch,1000);
+        document.getElementById('startStopBtn').innerHTML =`<i 
+        class ="fa-solid fa-pause" id ="pause"></i>`;
+
+        timerStatus ="started";
+
+      } else{
+        window.clearInterval(timeInterval);
+        document.getElementById('startStopBtn').innerHTML=
+        `<i 
+        class ="fa-solid fa-play" id ="play"></i>`;
+        timerStatus ="stopped";
+      }    
+    
+    }
+);
+
+    // a reset function to clear the time after clicking on the reset
+resetBtn.addEventListener('click', 
+function(){
+
+       window.clearInterval(timeInterval);
+       seconds = 0;
+      minutes = 0;
+       hours = 0;
+
+       document.getElementById('timer').innerHTML= "00:00:00";
+
+});
